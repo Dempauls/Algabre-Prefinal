@@ -115,16 +115,16 @@ public class main {
 
                     String regSql = "INSERT INTO tbl_employee (e_name, e_email, e_type, e_status, e_pass) VALUES (?, ?, ?, ?, ?)";
                     conf.addRecord(regSql, regName, regEmail, regUserType, "Pending", hashedRegPass);
-                    System.out.println("✅ Registration successful! (Password hashed)");
+                    System.out.println("Registration successful! (Password hashed)");
                     break;
 
                 case 3:
-                    System.out.println("👋 Exiting program...");
+                    System.out.println(" Exiting program...");
                     System.exit(0);
                     break;
 
                 default:
-                    System.out.println("⚠️ Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Please try again.");
                     break;
             }
         } while (task != 3);

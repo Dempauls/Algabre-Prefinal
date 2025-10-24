@@ -13,7 +13,7 @@ public class AdminDashboard {
     public static void createDefaultAdmin() throws SQLException {
         try (Connection conn = dbConnect.connectDB()) {
             if (conn == null) {
-                System.out.println("❌ Database connection failed.");
+                System.out.println("Database connection failed.");
                 return;
             }
 
@@ -36,7 +36,7 @@ public class AdminDashboard {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("⚠️ Error creating default admin: " + e.getMessage());
+            System.out.println("Error creating default admin: " + e.getMessage());
         }
     }
 
@@ -95,7 +95,7 @@ public class AdminDashboard {
                     String hashedPass = dbConnect.hashPassword(pass);
                     String sql = "INSERT INTO tbl_employee (e_name, e_email, e_type, e_status, e_pass) VALUES (?, ?, ?, ?, ?)";
                     conf.addRecord(sql, name, email, uType, "Active", hashedPass);
-                    System.out.println("✅ Employee added successfully!");
+                    System.out.println("Employee added successfully!");
                     break;
 
                 case 2:
@@ -119,7 +119,7 @@ public class AdminDashboard {
                     String hashedNewPass = dbConnect.hashPassword(newPass);
                     sql = "UPDATE tbl_employee SET e_name = ?, e_email = ?, e_pass = ?, e_status = ? WHERE e_id = ?";
                     conf.updateRecord(sql, newName, newEmail, hashedNewPass, newStatus, id);
-                    System.out.println("✅ Employee updated successfully!");
+                    System.out.println("Employee updated successfully!");
                     break;
 
                 case 4:
@@ -129,7 +129,7 @@ public class AdminDashboard {
                     sc.nextLine();
                     sql = "DELETE FROM tbl_employee WHERE e_id = ?";
                     conf.deleteRecord(sql, deleteId);
-                    System.out.println("🗑 Employee deleted successfully!");
+                    System.out.println("Employee deleted successfully!");
                     break;
 
                 case 5:
@@ -139,11 +139,11 @@ public class AdminDashboard {
 
                 case 6:
                     adminMenu = false;
-                    System.out.println("🚪 Logged out successfully.");
+                    System.out.println("Logged out successfully.");
                     break;
 
                 default:
-                    System.out.println("⚠️ Invalid choice, please try again.");
+                    System.out.println("Invalid choice, please try again.");
                     break;
             }
         }
