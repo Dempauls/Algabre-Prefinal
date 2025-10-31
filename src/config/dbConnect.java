@@ -42,14 +42,14 @@ public class dbConnect {
                     insertStmt.setString(2, hashedPassword);
                     insertStmt.setString(3, "Admin");
                     insertStmt.executeUpdate();
-                    System.out.println("✅ Default admin created successfully!");
+                    System.out.println(" Default admin created successfully!");
                 }
             } else {
-                System.out.println("ℹ️ Admin already exists.");
+                System.out.println(" Admin already exists.");
             }
 
         } catch (Exception e) {
-            System.out.println("❌ Error creating default admin: " + e.getMessage());
+            System.out.println(" Error creating default admin: " + e.getMessage());
         }
     }
 
@@ -81,11 +81,11 @@ public class dbConnect {
              ResultSet rs = pstmt.executeQuery()) {
 
             StringBuilder headerLine = new StringBuilder();
-            headerLine.append("---------------------------------------------------------------\n| ");
+            headerLine.append("---------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
                 headerLine.append(String.format("%-20s | ", header));
             }
-            headerLine.append("\n---------------------------------------------------------------");
+            headerLine.append("\n---------------------------------------------------------------------------------------------------");
             System.out.println(headerLine.toString());
 
             while (rs.next()) {
@@ -96,7 +96,7 @@ public class dbConnect {
                 }
                 System.out.println(row.toString());
             }
-            System.out.println("---------------------------------------------------------------");
+            System.out.println("-----------------------------------------------------------------------------------------------------");
 
         } catch (SQLException e) {
             System.out.println("Error retrieving records: " + e.getMessage());

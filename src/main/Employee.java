@@ -7,8 +7,17 @@ public class Employee {
 
     public static void viewEmployee() {
         String query = "SELECT * FROM tbl_employee";
-        String[] headers = {"id", "name", "email", "type", "status"};
+        String[] headers = {"ID", "Name", "Email", "Type", "Status"};
         String[] cols = {"e_id", "e_name", "e_email", "e_type", "e_status"};
+        dbConnect conf = new dbConnect();
+        conf.viewRecords(query, headers, cols);
+    }
+
+    
+    public static void viewTasks() {
+        String query = "SELECT * FROM tbl_task";
+        String[] headers = {"ID", "Task Title", "Description", "Status"};
+        String[] cols = {"t_id", "t_taskTitle", "t_desc", "t_status"};
         dbConnect conf = new dbConnect();
         conf.viewRecords(query, headers, cols);
     }
@@ -21,8 +30,9 @@ public class Employee {
         while (empMenu) {
             System.out.println("\n==== EMPLOYEE MENU ====");
             System.out.println("1. View Employees");
-            System.out.println("2. Update My Info");
-            System.out.println("3. Logout");
+            System.out.println("2. View Tasks");
+            System.out.println("3. Update My Info");
+            System.out.println("4. Logout");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -33,6 +43,10 @@ public class Employee {
                     break;
 
                 case 2:
+                    viewTasks();
+                    break;
+
+                case 3:
                     System.out.print("Enter New Name: ");
                     String newName = sc.nextLine();
                     System.out.print("Enter New Email: ");
@@ -46,11 +60,13 @@ public class Employee {
                     System.out.println("Your info updated successfully!");
                     break;
 
-                case 3:
+                case 4:
                     empMenu = false;
                     break;
+
+                default:
+                    System.out.println("Invalid choice. Try again!");
             }
         }
     }
 }
-

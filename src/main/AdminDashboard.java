@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class AdminDashboard {
 
-    
+   
     public static void createDefaultAdmin() throws SQLException {
         try (Connection conn = dbConnect.connectDB()) {
             if (conn == null) {
@@ -28,10 +28,7 @@ public class AdminDashboard {
                             insertStmt.setString(2, dbConnect.hashPassword("1234"));
                             insertStmt.setString(3, "Admin");
                             insertStmt.executeUpdate();
-                           
                         }
-                    } else {
-                        
                     }
                 }
             }
@@ -40,7 +37,7 @@ public class AdminDashboard {
         }
     }
 
-   
+    
     public void viewAdmins() {
         String sql = "SELECT * FROM tbl_admin";
         dbConnect conf = new dbConnect();
@@ -58,14 +55,22 @@ public class AdminDashboard {
         conf.viewRecords(query, headers, cols);
     }
 
+   
+    public static void viewTasks() {
+        String query = "SELECT * FROM tbl_task";
+        String[] headers = {"ID", "taskTitle", "Description", "Status"};
+        String[] cols = {"t_id", "t_taskTitle", "t_desc", "t_status"};
+        dbConnect conf = new dbConnect();
+        conf.viewRecords(query, headers, cols);
+    }
+
     
     public static void showMenu(String loginEmail) throws SQLException {
         Scanner sc = new Scanner(System.in);
         dbConnect conf = new dbConnect();
         boolean adminMenu = true;
 
-        
-        createDefaultAdmin();
+        createDefaultAdmin(); 
 
         while (adminMenu) {
             System.out.println("\n==== ADMIN DASHBOARD ====");
@@ -73,8 +78,11 @@ public class AdminDashboard {
             System.out.println("2. View Employees");
             System.out.println("3. Update Employee");
             System.out.println("4. Delete Employee");
-            System.out.println("5. View Admins");
-            System.out.println("6. Logout");
+            System.out.println("5. Add Admin");
+            System.out.println("6. View Admins");
+            System.out.println("7. Add Task");
+            System.out.println("8. View Tasks");
+            System.out.println("9. Logout");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -133,11 +141,40 @@ public class AdminDashboard {
                     break;
 
                 case 5:
+                    System.out.print("Enter new admin username: ");
+                    String aUsername = sc.nextLine();
+                    System.out.print("Enter password: ");
+                    String aPass = sc.nextLine();
+
+                    String hashedAdminPass = dbConnect.hashPassword(aPass);
+                    String sqlAdmin = "INSERT INTO tbl_admin (a_username, a_password, a_role) VALUES (?, ?, ?)";
+                    conf.addRecord(sqlAdmin, aUsername, hashedAdminPass, "Admin");
+                    System.out.println("New admin added successfully!");
+                    break;
+
+                case 6:
                     AdminDashboard adminDash = new AdminDashboard();
                     adminDash.viewAdmins();
                     break;
 
-                case 6:
+                case 7:
+                    System.out.print("Enter taskTitle: ");
+                    String taskTitle = sc.nextLine();
+                    System.out.print("Enter Task Description: ");
+                    String desc = sc.nextLine();
+                    System.out.print("Enter Task Status: ");
+                    String status = sc.nextLine();
+                   
+                    String sqlTask = "INSERT INTO tbl_task (t_taskTitle, t_desc, t_status) VALUES (?, ?, ?)";
+                    conf.addRecord(sqlTask, taskTitle, desc, status);
+                    System.out.println("Task added successfully!");
+                    break;
+
+                case 8:
+                    viewTasks();
+                    break;
+
+                case 9:
                     adminMenu = false;
                     System.out.println("Logged out successfully.");
                     break;
@@ -149,4 +186,3 @@ public class AdminDashboard {
         }
     }
 }
-
