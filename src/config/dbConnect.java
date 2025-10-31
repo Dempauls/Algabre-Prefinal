@@ -42,14 +42,14 @@ public class dbConnect {
                     insertStmt.setString(2, hashedPassword);
                     insertStmt.setString(3, "Admin");
                     insertStmt.executeUpdate();
-                    System.out.println(" Default admin created successfully!");
+                    System.out.println("Default admin created successfully!");
                 }
             } else {
-                System.out.println(" Admin already exists.");
+                System.out.println("Admin already exists.");
             }
 
         } catch (Exception e) {
-            System.out.println(" Error creating default admin: " + e.getMessage());
+            System.out.println("Error creating default admin: " + e.getMessage());
         }
     }
 
